@@ -59,7 +59,12 @@ O sistema permite **criar, listar, atualizar e deletar tarefas**, praticando os 
    npx sequelize-cli db:migrate
    ```
 
-5. **Inicie o servidor:**
+5. **Rode as pre-dados do banco**
+   ```
+   npx sequelize-cli db:seed:all
+   ```
+
+6. **Inicie o servidor:**
    ```bash
    npm run dev
    ```
