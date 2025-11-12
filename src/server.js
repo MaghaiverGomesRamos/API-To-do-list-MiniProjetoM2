@@ -1,17 +1,16 @@
 import 'dotenv/config';
 import express from 'express';
-import startServer  from './models/startServer.js'
-import router from './routes/tarefaRoutes.js'
+import router from './routes/tarefaRoutes.js';
 
+const app = express();
+app.use(express.json());
 
-const app = express()
-app.use(express.json())
-
-//Rotas
+// Define o grupo de rotas relacionadas a tarefas
 app.use('/tarefas', router);
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT;
 
-startServer(app, PORT)
-
-
+// Inicia o servidor e exibe no console a porta usada
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});

@@ -1,38 +1,36 @@
 import { Router } from "express";
-import { listarTarefas, 
-    buscarTarefaPorId, 
-    atualizarStatus,
-    atualizarTarefa,
-    deletarTarefa, 
-    CriarTarefa,
-    deletarTodas} from "../controllers/tarefaController.js";
+import { 
+  listarTarefas, 
+  buscarTarefaPorId, 
+  atualizarStatus,
+  atualizarTarefa,
+  deletarTarefa, 
+  CriarTarefa,
+  deletarTodas
+} from "../controllers/tarefaController.js";
+import { validarTarefa } from "../middlewares/validarTarefa.js";
 
 const router = Router();
 
-// Criar nova tarefa
-router.post('/', CriarTarefa)
+// Cria nova tarefa (com validação de título e descrição)
+router.post('/', validarTarefa, CriarTarefa);
 
-// Listar todas as tarefas
-router.get('/', listarTarefas)
+// Retorna todas as tarefas registradas
+router.get('/', listarTarefas);
 
-// Buscar tarefa por ID
+// Busca uma tarefa específica pelo ID
+router.get('/:id', buscarTarefaPorId);
 
-router.get('/:id', buscarTarefaPorId)
+// Atualiza todos os campos de uma tarefa existente
+router.put('/:id', atualizarTarefa);
 
-// Atualizar tarefa completa
+// Atualiza apenas o status de uma tarefa
+router.patch('/:id/status', atualizarStatus);
 
-router.put('/:id', atualizarTarefa)
+// Remove uma tarefa específica
+router.delete('/:id', deletarTarefa);
 
-// Atualizar apenas Status
+// Remove todas as tarefas (usado, por exemplo, para limpar o banco)
+router.delete('/', deletarTodas);
 
-router.patch('/:id/status', atualizarStatus)
-
-// Deletar tarefa
-
-router.delete('/:id', deletarTarefa)
-
-// Deletar todas as tarefas
-
-router.delete('/', deletarTodas)
-
-export default router
+export default router;
