@@ -1,11 +1,15 @@
 import { Sequelize } from 'sequelize';
 import 'dotenv/config';
+import { createRequire } from 'module';
 
-// Cria uma instância do Sequelize usando SQLite como banco local
-// O caminho do arquivo do banco é definido na variável de ambiente DB_PATH
-const sequelize = new Sequelize({
-    dialect: 'sqlite',          // define o tipo de banco
-    storage: process.env.DB_PATH // localização do arquivo .sqlite
-});
+const require = createRequire(import.meta.url);
+const config = require('../../config/config.json');
+
+const env = process.env.NODE_ENV || 'development';
+const dbConfig = config[env];
+
+const sequelize = dbConfig.use_env_variable
+  ? new Sequelize(process.env[dbConfig.use_env_variable], dbConfig)
+  : new Sequelize(dbConfig);
 
 export default sequelize;
