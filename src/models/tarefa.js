@@ -34,7 +34,8 @@ const Tarefa = sequelize.define(
     },
   },
   {
-    tableName: "Tarefas", // garante que a tabela tenha esse nome exato no banco
+    tableName: "Tarefas",
+    freezeTableName: true // garante que a tabela tenha esse nome exato no banco
   }
 );
 

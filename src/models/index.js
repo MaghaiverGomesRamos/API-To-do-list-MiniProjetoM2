@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: './database.sqlite',
+  storage: process.env.DB_PATH,
   logging: false
 });
 
